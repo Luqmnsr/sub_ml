@@ -162,7 +162,7 @@ class MainActivity : AppCompatActivity(), ImageClassifierHelper.ClassifierListen
                             val message = "Ini adalah contoh kanker kulit."
                             showToast(message)
                             moveToResult("$filteredResultText\n\n$message")
-                        } else if (category.label.equals("Non Cancer", ignoreCase = true)) {
+                        } else if (category.label.trim().equals("Non Cancer", ignoreCase = true)) {
                             val message = "Ini bukan kanker kulit."
                             showToast(message)
                             moveToResult("$filteredResultText\n\n$message")
