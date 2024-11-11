@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity(), ImageClassifierHelper.ClassifierListen
             val filteredResultText = it.joinToString("\n") { classification ->
                 classification.categories
                     .filter { category -> category.score > 0.5 }  // Menyaring hanya kategori dengan skor > 50%
-                    .joinToString { category -> "${category.label}: ${category.score * 100}%" }
+                    .joinToString { category -> "${category.label}: ${category.score.times(100).toInt()}%" }
             }.trim()  // Menghapus baris kosong yang mungkin muncul jika tidak ada kategori di atas 50%
 
             // Log hasil yang difilter
@@ -159,16 +159,16 @@ class MainActivity : AppCompatActivity(), ImageClassifierHelper.ClassifierListen
                 highestCategory?.let { category ->
                     if (category.score > 0.5) {
                         if (category.label.equals("Cancer", ignoreCase = true)) {
-                            val message = "Ini adalah contoh kanker kulit."
+                            val message = "Gambar tersebut merupakan contoh kanker kulit."
                             showToast(message)
                             moveToResult("$filteredResultText\n\n$message")
                         } else if (category.label.trim().equals("Non Cancer", ignoreCase = true)) {
-                            val message = "Ini bukan kanker kulit."
+                            val message = "Gambar tersbut bukan merupakan contoh kanker kulit."
                             showToast(message)
                             moveToResult("$filteredResultText\n\n$message")
                         } else {
                             // Jika label tidak sesuai dengan "cancer" atau "non cancer", tampilkan pesan ketidakpastian
-                            val message = "Label tidak dikenali, hasil tidak dapat dipastikan."
+                            val message = "Gambar tidak dikenali, hasil tidak dapat dipastikan."
                             showToast(message)
                             moveToResult("$filteredResultText\n\n$message")
                         }
