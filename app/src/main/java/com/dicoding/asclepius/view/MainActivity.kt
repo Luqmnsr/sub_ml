@@ -108,11 +108,14 @@ class MainActivity : AppCompatActivity(), ImageClassifierHelper.ClassifierListen
                 currentImageUri = it
                 showImage()
             }
-        } else {
+        } else if (result.resultCode == UCrop.RESULT_ERROR) {
             val cropError = UCrop.getError(result.data!!)
             cropError?.let {
                 showToast(getString(R.string.image_load_failed))
             } ?: showToast("Error cropping image.")
+        } else {
+            // Jika proses cropping dibatalkan
+            showToast("Cropping canceled.")
         }
     }
 
